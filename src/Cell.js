@@ -1,12 +1,11 @@
-const Cell = ({ data, fill, addSymbol }) => {
-  // console.log(fill);
+const Cell = ({ data, fill, addSymbol, hasWon }) => {
   return (
     <td>
       <button
         onClick={() => {
-          if (!fill) addSymbol();
+          if (!fill && !hasWon) addSymbol();
         }}
-        // disable={fill}
+        style={{ height: "20px", width: "20px" }}
       >
         {data || " "}
       </button>
