@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Cell from "./Cell";
 
-const Board = () => {
+const Board = ({ n }) => {
   const createTable = () => {
     let arr = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < n; i++) {
       let row = [];
-      for (let j = 0; j < 3; j++) {
+      for (let j = 0; j < n; j++) {
         row.push({ data: "", fill: false });
       }
       arr.push(row);
@@ -29,7 +29,7 @@ const Board = () => {
     setClick({ count: click.count + 1, turn: !click.turn });
     setArr(newArr);
 
-    if (click.count >= 4) {
+    if (click.count >= n + 1) {
       const isWin = checkWin(i, j);
       isWin && setWinner(arr[i][j].data);
     }
@@ -39,15 +39,15 @@ const Board = () => {
     const Moves = new Set();
 
     if (row === col) {
-      for (let i = 0; i < 3; i++) Moves.add(arr[i][i].data);
+      for (let i = 0; i < n; i++) Moves.add(arr[i][i].data);
       if (Moves.size === 1) return true;
       Moves.clear();
     }
 
-    if (row + col === 2) {
-      for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-          if (i + j === 2) Moves.add(arr[i][j].data);
+    if (row + col === n - 1) {
+      for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+          if (i + j === n - 1) Moves.add(arr[i][j].data);
         }
       }
       if (Moves.size === 1) return true;
@@ -55,14 +55,14 @@ const Board = () => {
       Moves.clear();
     }
 
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < n; j++) {
       Moves.add(arr[row][j].data);
     }
     if (Moves.size === 1) return true;
 
     Moves.clear();
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < n; i++) {
       Moves.add(arr[i][col].data);
     }
     if (Moves.size === 1) return true;
@@ -72,9 +72,9 @@ const Board = () => {
 
   const printBoard = () => {
     let board = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < n; i++) {
       let row = [];
-      for (let j = 0; j < 3; j++) {
+      for (let j = 0; j < n; j++) {
         row.push(
           <Cell
             {...arr[i][j]}
