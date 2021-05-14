@@ -18,7 +18,7 @@ const Board = ({ n }) => {
   // console.log(arr);
   const [click, setClick] = useState({
     turn: false,
-    count: 0
+    count: 1
   });
 
   const [winner, setWinner] = useState("");
@@ -29,7 +29,7 @@ const Board = ({ n }) => {
     setClick({ count: click.count + 1, turn: !click.turn });
     setArr(newArr);
 
-    if (click.count >= n + 1) {
+    if (click.count >= 2 * n - 1) {
       const isWin = checkWin(i, j);
       isWin && setWinner(arr[i][j].data);
     }
